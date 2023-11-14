@@ -68,3 +68,63 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+``` tsx
+
+import React, { useEffect, useState } from 'react';
+import { get, post, put, del } from './utils/apiUtils';
+
+const YourComponent: React.FC = () => {
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const result = await get('your-endpoint');
+      setData(result.data);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const createData = async (newData: any) => {
+    try {
+      await post('your-endpoint', newData);
+      fetchData();
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const updateData = async (id: string, updatedData: any) => {
+    try {
+      await put(`your-endpoint/${id}`, updatedData);
+      fetchData();
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const deleteData = async (id: string) => {
+    try {
+      await del(`your-endpoint/${id}`);
+      fetchData();
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  return (
+    <div>
+      {/* Your component rendering and UI */}
+    </div>
+  );
+};
+
+export default YourComponent;
+
+```
