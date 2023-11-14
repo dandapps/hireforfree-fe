@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, Auth, User, UserCredential } from 'firebase/auth'
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, Auth, User, UserCredential, sendEmailVerification as sendVerificationEmail, sendPasswordResetEmail } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc, Firestore, DocumentReference, DocumentSnapshot } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
@@ -27,7 +27,7 @@ const firebaseConfig: FirebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig as FirebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig as FirebaseConfig);
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   promt: "select-account"
@@ -45,24 +45,23 @@ export const createUserDocumentFromAuth = async (userAuth: User, additionalInfor
 
   // If user data does not exist in DB then create or set the document with the data from userAuth in my Collection
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
+    const { displayName, email,uid } = userAuth;
     const createdAt = new Date();
 
     try {
       await setDoc(
         userDocRef, {
-          displayName,
           email,
           createdAt,
+          userId : uid,
           ...additionalInformation,
         }
       );
-
     } catch (error: any) {
       console.error('Error while creating the user:', error.message);
     }
   }
-
+  console.log(`User record: ${userAuth}`);
   return userDocRef;
 }
 
@@ -78,6 +77,24 @@ export const signInAuthUserWithEmailAndPassword = async (email: string, password
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
+export const sendEmailVerification = async (user: any) => {
+  try {
+    await sendVerificationEmail(user);
+  } catch (error: any) {
+    console.error('Email verification error:', error.message);
+  }
+};
+
+export const sendPasswordChangeEmail = async (email: string) => {
+  try{
+    await sendPasswordResetEmail(auth,email);
+  } catch(error: any) {
+    console.error('Passwordreset error:', error.message);
+  }
+}
+
+
 export const signOutUser = async (): Promise<void> => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback: (user: User | null) => void): (() => void) => onAuthStateChanged(auth, callback);
+

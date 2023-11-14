@@ -1,10 +1,13 @@
-import React, { FormEvent, ChangeEvent, useState } from 'react';
+import React, { FormEvent, ChangeEvent, useState, useEffect } from 'react';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-
+import { useNavigate } from 'react-router-dom';
+import VerificationPage from '../verification/verification.component';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
+  sendEmailVerification,
+  auth
 } from '../../utils/firebase/firebase.utils';
 
 import './sign-up-form.styles.scss';
@@ -27,7 +30,21 @@ const SignUpForm: React.FC = () => {
   const [formFields, setFormFields] = useState<SignUpFormState>(
     defaultFormFields
   );
+  const [isVerifying, setIsVerifying] = useState(false);
   const { displayName, email, password, confirmPassword } = formFields;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkEmailVerification = async () => {
+      const user = auth.currentUser;
+      if (user && !user.emailVerified) {
+        setIsVerifying(true);
+      }
+    };
+
+    checkEmailVerification();
+  }, []);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -45,9 +62,10 @@ const SignUpForm: React.FC = () => {
       const result = await createAuthUserWithEmailAndPassword(email, password);
       if (result) {
         const { user } = result;
+        await sendEmailVerification(user);
+        setIsVerifying(true);
         await createUserDocumentFromAuth(user, { displayName });
         resetFormFields();
-        alert(`Welcome ${displayName} !!!`);
       } else {
         // Handle the case where result is undefined
         console.error('Authentication result is undefined');
@@ -68,48 +86,54 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className='sign-up-container'>
-      <h2>Don't have an account?</h2>
-      <span>Sign up with your email and password</span>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          label='Display Name'
-          type='text'
-          required
-          onChange={handleChange}
-          name='displayName'
-          value={displayName}
-        />
-
-        <FormInput
-          label='Email'
-          type='email'
-          required
-          onChange={handleChange}
-          name='email'
-          value={email}
-        />
-
-        <FormInput
-          label='Password'
-          type='password'
-          required
-          onChange={handleChange}
-          name='password'
-          value={password}
-        />
-
-        <FormInput
-          label='Confirm Password'
-          type='password'
-          required
-          onChange={handleChange}
-          name='confirmPassword'
-          value={confirmPassword}
-        />
-        <Button type='submit'>Sign Up</Button>
-      </form>
-    </div>
+   <div>
+    {
+      isVerifying ? (<VerificationPage/>) : (
+        <div className='sign-up-container'>
+        <h2>Don't have an account?</h2>
+        <span>Sign up with your email and password</span>
+        <form onSubmit={handleSubmit}>
+          <FormInput
+            label='Display Name'
+            type='text'
+            required
+            onChange={handleChange}
+            name='displayName'
+            value={displayName}
+          />
+  
+          <FormInput
+            label='Email'
+            type='email'
+            required
+            onChange={handleChange}
+            name='email'
+            value={email}
+          />
+  
+          <FormInput
+            label='Password'
+            type='password'
+            required
+            onChange={handleChange}
+            name='password'
+            value={password}
+          />
+  
+          <FormInput
+            label='Confirm Password'
+            type='password'
+            required
+            onChange={handleChange}
+            name='confirmPassword'
+            value={confirmPassword}
+          />
+          <Button type='submit'>Sign Up</Button>
+        </form>
+      </div>
+      ) 
+    }
+   </div>
   );
 };
 

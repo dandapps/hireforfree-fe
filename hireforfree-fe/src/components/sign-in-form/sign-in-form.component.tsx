@@ -4,11 +4,11 @@ import Button from '../button/button.component';
 
 import {
   signInAuthUserWithEmailAndPassword,
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
+  signInWithGooglePopup
 } from '../../utils/firebase/firebase.utils';
 
 import './sign-in-form.styles.scss';
+import { Link } from 'react-router-dom';
 
 interface FormFields {
   email: string;
@@ -79,6 +79,11 @@ const SignInForm = () => {
           <Button type='submit'>Sign In</Button>
           <Button buttonType='google' type='button' onClick={signInWithGoogle}>
             Sign In With Google
+          </Button>
+        </div>
+        <div className="buttons-container">
+        <Button buttonType='google' type='button'>
+          <Link to="/password-reset">Forgot Password?</Link>
           </Button>
         </div>
       </form>
