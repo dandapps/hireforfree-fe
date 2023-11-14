@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { FormEvent, ChangeEvent, useState } from 'react';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
@@ -9,47 +9,59 @@ import {
 
 import './sign-up-form.styles.scss';
 
-const defaultFormFields = {
+interface SignUpFormState {
+  displayName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const defaultFormFields: SignUpFormState = {
   displayName: '',
   email: '',
   password: '',
   confirmPassword: '',
 };
 
-const SignUpForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
+const SignUpForm: React.FC = () => {
+  const [formFields, setFormFields] = useState<SignUpFormState>(
+    defaultFormFields
+  );
   const { displayName, email, password, confirmPassword } = formFields;
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert('passwords do not match');
+      alert('Passwords do not match');
       return;
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserDocumentFromAuth(user, { displayName });
-      resetFormFields();
-      alert(`Welcome ${displayName} !!!`);
-    } catch (error) {
+      const result = await createAuthUserWithEmailAndPassword(email, password);
+      if (result) {
+        const { user } = result;
+        await createUserDocumentFromAuth(user, { displayName });
+        resetFormFields();
+        alert(`Welcome ${displayName} !!!`);
+      } else {
+        // Handle the case where result is undefined
+        console.error('Authentication result is undefined');
+      }
+    } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
       } else {
-        console.log('user creation encountered an error', error);
+        console.log('User creation encountered an error', error);
       }
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });

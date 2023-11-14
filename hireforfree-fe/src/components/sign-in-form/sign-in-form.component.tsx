@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
@@ -11,7 +10,12 @@ import {
 
 import './sign-in-form.styles.scss';
 
-const defaultFormFields = {
+interface FormFields {
+  email: string;
+  password: string;
+}
+
+const defaultFormFields: FormFields = {
   email: '',
   password: '',
 };
@@ -28,14 +32,14 @@ const SignInForm = () => {
     await signInWithGooglePopup();
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       await signInAuthUserWithEmailAndPassword(email, password);
       resetFormFields();
       alert(`Login Sucessfull !!`)
-    } catch (error) {
+    } catch (error : any) {
       if(error.code === `auth/invalid-login-credentials`){
         alert(`Login Failed: Username or Password Wrong`);
       }
@@ -43,7 +47,7 @@ const SignInForm = () => {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
