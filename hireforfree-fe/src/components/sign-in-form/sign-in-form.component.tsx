@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-
+import { useNavigate } from 'react-router-dom';
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup
@@ -23,6 +23,7 @@ const defaultFormFields: FormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const navigate = useNavigate();
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -30,6 +31,7 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
+    navigate('/home');
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -39,6 +41,7 @@ const SignInForm = () => {
       await signInAuthUserWithEmailAndPassword(email, password);
       resetFormFields();
       alert(`Login Sucessfull !!`)
+      navigate('/home');
     } catch (error : any) {
       if(error.code === `auth/invalid-login-credentials`){
         alert(`Login Failed: Username or Password Wrong`);
