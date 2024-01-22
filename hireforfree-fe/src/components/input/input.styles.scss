@@ -1,0 +1,52 @@
+@import '../../styles/global-variables.scss';
+
+.input-container {
+    position:relative;
+    margin-bottom: 20px;
+}
+
+.input-wrapper {
+    position: relative;
+  }
+
+.input-field{
+    width:100%;
+    padding: 10px 0px 10px 30px;
+    border: 1px solid $normal-content-color;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    
+      &:focus ~ .placeholder{
+        font-size: 12px;
+        transform: translateY(-23px);
+        color: $normal-content-color;
+        background-color: $white-color;
+      }
+}
+
+.placeholder {
+    position: absolute;
+    top:50%;
+    left:30px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: $sub-heading-color;
+    transition: font-size 0.3s, transform 0.3s, color 0.3s;
+}
+
+.leading-icon,
+.trailing-icon{
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+
+    &.leading-icon{
+        left: 10px;
+    }
+
+    &.trailing-icon{
+        right:-10px;
+    }
+}
