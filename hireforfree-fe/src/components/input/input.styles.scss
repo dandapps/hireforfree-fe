@@ -11,14 +11,15 @@
 
 .input-field{
     width:100%;
-    padding: 10px 0px 10px 30px;
-    border: 1px solid $normal-content-color;
+    padding: 15px 0px 15px 30px;
+    border: 2px solid $input-border-color;
     border-radius: 4px;
     transition: border-color 0.3s;
+    box-sizing: border-box;
     
       &:focus ~ .placeholder{
         font-size: 12px;
-        transform: translateY(-23px);
+        transform: translateY(-30px);
         color: $normal-content-color;
         background-color: $white-color;
       }
@@ -30,7 +31,7 @@
     left:30px;
     transform: translateY(-50%);
     font-size: 16px;
-    color: $sub-heading-color;
+    color: $place-holder-text-color;
     transition: font-size 0.3s, transform 0.3s, color 0.3s;
 }
 
@@ -47,6 +48,6 @@
     }
 
     &.trailing-icon{
-        right:-10px;
+        right:10px;
     }
 }

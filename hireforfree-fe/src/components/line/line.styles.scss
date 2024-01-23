@@ -1,0 +1,26 @@
+@import '../../styles/global-variables.scss';
+
+.line-with-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 1px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .line {
+    flex-grow: 1;
+    height: 1px;
+    background: #E4E4E4; /* Adjust the color of the line */
+  }
+  
+  .text {
+    margin: 0 10px; /* Adjust the margin around the text */
+    background-color: #fff; /* Adjust the background color behind the text */
+    position: absolute;
+    left: 42%;
+    top: -10px;
+    color: $normal-content-color;
+  }
+  

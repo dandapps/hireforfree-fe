@@ -1,0 +1,11 @@
+.sign-in-page {
+    display: flex;
+    height: 100vh; // 100% of the viewport height
+  }
+  
+  @media (max-width: 768px) {
+    .sign-in-page {
+      flex-direction: column;
+    }
+  }
+  

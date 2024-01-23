@@ -1,0 +1,36 @@
+@import '../../../styles/global-variables.scss';
+
+.left-side {
+    flex: 1;
+    background-color: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    .content {
+      max-width: 80%;
+      color: white;
+    }
+  }
+
+  .top-side {
+    flex: 1;
+    background-color: $primary-color;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  
+    .content {
+      max-width: 80%;
+      color: white;
+    }
+  }
+
+  @media (max-width: 768px){
+    .left-side {
+        display: none;
+      }
+    .top-side{
+        display: flex;
+    }
+  }
