@@ -1,0 +1,67 @@
+@import '../../../styles/global-variables.scss';
+
+.sign-in-form {
+    flex: 1; // Takes 2/3 of the available space
+    display: flex;
+    justify-content: center;
+    align-self: stretch;
+
+    .header{
+      font-family: $font-family;
+      font-size: 32px;
+      font-style: $font-style;
+      font-weight: 600;
+    }
+
+    .content {
+      width: 50%;
+      padding: 10px;
+      margin-top: 100px;
+    }
+
+    .text-position{
+      float: right;
+      margin-top: -18px;
+      margin-bottom: 20px;
+    }
+
+    .link-text{
+      text-decoration: underline;
+      color: $primary-color;
+      font-size: 12px;
+      font-style: $font-style;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    .paragraph-text{
+      font-size: 12px;
+      font-style: $font-style;
+      font-weight: 500;
+      line-height: 20px;
+      color: $normal-content-color
+    }
+
+    .external-login {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px; 
+      gap: 32px;
+  
+      .external-login-icon {
+        width: 35px; 
+        height: 35px; 
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sign-in-form {
+      flex: 7;
+      .content {
+        width: 80%;
+        padding: 10px;
+        margin-top: 8px;
+      }
+    }
+  }
