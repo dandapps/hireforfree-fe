@@ -1,0 +1,39 @@
+@import '../../styles/global-variables.scss';
+
+.toggle-switch {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 10px 12px;
+    align-items: center;
+    gap: 20px;
+    align-self: stretch;
+    border-radius: 4px;
+    background: #EEE;
+
+    .option-button {
+        margin-right: 10px;
+        cursor: pointer;
+        display: flex;
+        padding: 10px 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex: 1 0 0;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.837px;
+        text-transform: uppercase;
+        border: none;
+
+        &.active {
+            font-weight: bold;
+            background: $white-color;
+        }
+
+        input {
+            display: none;
+        }
+    }
+}

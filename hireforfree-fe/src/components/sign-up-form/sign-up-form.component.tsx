@@ -3,6 +3,8 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import { useNavigate } from 'react-router-dom';
 import VerificationPage from '../verification/verification.component';
+import ToggleSwitch from '../toggle-switch/toggle-switch.component';
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
