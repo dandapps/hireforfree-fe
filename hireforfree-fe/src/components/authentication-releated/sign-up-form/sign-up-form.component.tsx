@@ -6,9 +6,6 @@ import Button from '../../button/button.component';
 import ToggleSwitch from '../../toggle-switch/toggle-switch.component';
 
 const SignUpForm: React.FC = () => {
-  const FacebookIcon = require('../../../assets/fb2.png');
-  const GoogleIcon = require('../../../assets/GCC.png');
-
   const handleToggle = (selectedOption: string) => {
     console.log(`Selected option: ${selectedOption}`);
     // You can perform additional actions based on the selected option
