@@ -17,6 +17,7 @@ function App() {
     <Route path="/password-reset" element={<PasswordReset />} />
     <Route path="/signin" element={<SignInPage />} />
     <Route path="/signup" element={<SignUpPage />} />
+    <Route  path="/home" element={<NewUserLandingPage />} />
     </Route>
   </Routes>
   );
