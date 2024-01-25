@@ -1,8 +1,7 @@
-// App.tsx
 import React from 'react';
 import JobCard from '../../components/jobcard/jobcard.component';
 import './home.styles.scss';
-
+import SearchBar from '../../components/searchbar/searchbar.component';
 
 const Home: React.FC = () => {
   const jobData = {
@@ -24,16 +23,29 @@ const Home: React.FC = () => {
     postedDaysAgo: 5,
   };
   return (
-    <div className='job-postings'>
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
-      <JobCard {...jobData} />
+    <div>
+      <div className='search-area'>
+      <div className='tag-line'>
+          <p>Collaborate, Elevate, Experience</p>
+        </div>
+        <div className='tag-line-description'>
+          <p>Your Path to Valuable Experience</p>
+          </div>
+        <div className='search-component'>
+          <SearchBar />
+        </div>
+      </div>
+      <div className='job-postings'>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+        <div className='job-container'><JobCard {...jobData} /></div>
+      </div>
     </div>
   );
 };
