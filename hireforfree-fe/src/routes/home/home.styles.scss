@@ -1,8 +1,103 @@
-.job-postings{
+@import '../../styles/global-variables.scss';
+
+.search-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+    flex-direction: column;
+    height: 400px;
+    width: 100%;
+
+    .tag-line {
+        p {
+            color: $white-color;
+            font-size: 50px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            margin-bottom: 5px;
+        }
+    }
+
+    .tag-line-description {
+        p {
+            color: $white-color;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+
+    .search-component {
+        width: 513px;
+        height: 50px;
+    }
+}
+
+.job-postings {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 24px;
+
+
+    .job-container{
+        width:354px;
+        height: 164px;
+        margin: 35px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $primary-color;
+        flex-direction: column;
+        height: 400px;
+        width: 100%;
+    
+        .tag-line {
+            p {
+                color: $white-color;
+                font-size: 25px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                margin-bottom: 5px;
+            }
+        }
+    
+        .tag-line-description {
+            p {
+                color: $white-color;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+        .search-component {
+            width: 358px;
+            height: 50px;
+        }
+    }
+    .job-postings {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .job-container{
+            width:354px;
+            height: 164px;
+            margin: 35px 30px;
+            padding: 10px 30px 10px 0px;
+        }
+    }
 }
